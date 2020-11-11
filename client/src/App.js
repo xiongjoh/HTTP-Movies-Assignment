@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
+import UpdateMovie from './Movies/UpdateMovie'
 import axios from 'axios';
 
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
+  // to keep updating/fetching movieList everytime it is changed
+  const [fetch, setFetch] = useState(false)
 
   const getMovieList = () => {
     axios
@@ -20,9 +23,10 @@ const App = () => {
     setSavedList([...savedList, movie]);
   };
 
+
   useEffect(() => {
     getMovieList();
-  }, []);
+  },[fetch]);
 
   return (
     <>
@@ -31,9 +35,11 @@ const App = () => {
       <Route exact path="/">
         <MovieList movies={movieList} />
       </Route>
-
-      <Route path="/movies/:id">
-        <Movie addToSavedList={addToSavedList} />
+      <Route  path="/movies/:id">
+        <Movie addToSavedList={addToSavedList} fetch={fetch} setFetch={setFetch}/>
+      </Route>
+      <Route  path='/update-movie/:id'>
+        <UpdateMovie movies={movieList} setMovies={setMovieList} fetch={fetch} setFetch={setFetch}/>
       </Route>
     </>
   );

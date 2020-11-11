@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
+import axios from 'axios'
+
 
 function MovieList({ movies }) {
+
   return (
     <div className="movie-list">
       {
