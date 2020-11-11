@@ -34,9 +34,10 @@ const UpdateMovie = props => {
         })
     }
 
+    // update movie in api and state
     const handleUpdate = (event) => {
         event.preventDefault()
-
+        // check to see if stars is an array or not, converts it into an array
         const updatedForm = {...formValues, stars:(Array.isArray(formValues.stars) ? formValues.stars : formValues.stars.split(',') )}
 
         axios.put(`http://localhost:5000/api/movies/${id}`, updatedForm)

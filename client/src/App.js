@@ -24,7 +24,7 @@ const App = () => {
     setSavedList([...savedList, movie]);
   };
 
-
+  // fetch toggles to get movieLists when used to delete/update
   useEffect(() => {
     getMovieList();
   },[fetch]);

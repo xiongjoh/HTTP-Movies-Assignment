@@ -23,9 +23,11 @@ const AddMovie = (props) => {
         })
     }
 
+    // add movie to api and state
     const handleAddMovie = (event) => {
         event.preventDefault()
-        const updatedForm = {...formValues, stars:formValues.stars.split(','), id:movies.length+1}
+        // converts stars to an array and adds in id based on length of movielist
+        const updatedForm = {...formValues, stars:formValues.stars.split(','), id:(movies.length === 0 ? movies.length : movies.length+1)}
         axios.post('http://localhost:5000/api/movies', updatedForm)
         .then(res => {
             console.log(res)
